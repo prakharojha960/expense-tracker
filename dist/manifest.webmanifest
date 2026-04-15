@@ -1,0 +1,23 @@
+{
+  "name": "FlowLedger",
+  "short_name": "FlowLedger",
+  "description": "A personal finance tracker for monitoring income, expenses, budgets, and trends.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f1e8",
+  "theme_color": "#d97706",
+  "icons": [
+    {
+      "src": "icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "appId": "com.flowledger.app",
+  "appName": "FlowLedger",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

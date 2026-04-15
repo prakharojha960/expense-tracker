@@ -1,0 +1,23 @@
+{
+  "name": "expense-tracker",
+  "version": "1.0.0",
+  "description": "FlowLedger personal finance tracker packaged for web and Android",
+  "main": "script.js",
+  "scripts": {
+    "build:web": "node scripts/copy-web.mjs",
+    "cap:copy": "npm run build:web && npx cap copy",
+    "cap:sync": "npm run build:web && npx cap sync",
+    "android:add": "npx cap add android",
+    "android:build": "npm run cap:sync && cd android && ./gradlew assembleDebug",
+    "android:open": "npx cap open android"
+  },
+  "keywords": [],
+  "author": "Prakhar Ojha",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@capacitor/android": "^8.3.0",
+    "@capacitor/cli": "^8.3.0",
+    "@capacitor/core": "^8.3.0"
+  }
+}

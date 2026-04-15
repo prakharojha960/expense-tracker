@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#d97706">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="FlowLedger">
+  <title>FlowLedger | Expense Tracker</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero">
+      <div class="hero-copy-block">
+        <p class="eyebrow">FlowLedger</p>
+        <h1>Your money, finally easy to read.</h1>
+        <p class="hero-copy">A polished personal finance dashboard for tracking income, controlling spend, and spotting patterns before they become problems.</p>
+      </div>
+      <div class="hero-badge-grid">
+        <article class="hero-badge">
+          <span>Currency</span>
+          <strong>Indian Rupees</strong>
+        </article>
+        <article class="hero-badge">
+          <span>Data</span>
+          <strong>Private in your browser</strong>
+        </article>
+        <article class="hero-badge">
+          <span>Export</span>
+          <strong>JSON and CSV ready</strong>
+        </article>
+        <button id="install-app" type="button" class="primary-btn hidden">Install App</button>
+      </div>
+    </section>
+
+    <section class="panel composer">
+      <div class="section-head">
+        <div>
+          <h2 id="form-heading">Add Transaction</h2>
+          <p class="muted">Track income and expenses with notes, recurring tags, and clean month-wise history.</p>
+        </div>
+        <button id="cancel-edit" type="button" class="ghost-btn hidden">Cancel Edit</button>
+      </div>
+
+      <form id="entry-form" class="form-grid">
+        <label>
+          <span>Amount</span>
+          <input id="amt" type="number" min="0" step="0.01" placeholder="0.00" required>
+        </label>
+
+        <label>
+          <span>Type</span>
+          <select id="type">
+            <option value="expense">Expense</option>
+            <option value="income">Income</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Category</span>
+          <input id="cat" placeholder="Groceries" required>
+        </label>
+
+        <label>
+          <span>Date</span>
+          <input id="date" type="date">
+        </label>
+
+        <label>
+          <span>Notes</span>
+          <input id="note" placeholder="Optional note">
+        </label>
+
+        <label class="checkbox-field">
+          <span>Recurring</span>
+          <input id="recurring" type="checkbox">
+        </label>
+
+        <button id="submit-btn" type="submit" class="primary-btn">Add Entry</button>
+      </form>
+
+      <div class="quick-categories">
+        <span>Quick categories</span>
+        <div id="category-presets" class="chip-row"></div>
+      </div>
+    </section>
+
+    <section class="summary-grid">
+      <article class="metric-card income-card">
+        <span>Income</span>
+        <strong id="inc">₹0</strong>
+      </article>
+      <article class="metric-card expense-card">
+        <span>Expense</span>
+        <strong id="exp">₹0</strong>
+      </article>
+      <article class="metric-card balance-card">
+        <span>Balance</span>
+        <strong id="bal">₹0</strong>
+      </article>
+      <article class="metric-card neutral-card">
+        <span>Savings Rate</span>
+        <strong id="save-rate">0%</strong>
+      </article>
+    </section>
+
+    <section class="triple-grid">
+      <section class="panel budget-panel">
+        <div class="section-head">
+          <div>
+            <h2>Budget Goal</h2>
+            <p class="muted">Set a monthly spending target and see how close you are.</p>
+          </div>
+        </div>
+
+        <div class="budget-controls">
+          <label>
+            <span>Monthly Budget</span>
+            <input id="budget-input" type="number" min="0" step="0.01" placeholder="25000">
+          </label>
+          <button id="save-budget" type="button" class="primary-btn">Save Budget</button>
+        </div>
+
+        <div class="budget-progress">
+          <div class="budget-bar">
+            <div id="budget-fill" class="budget-fill"></div>
+          </div>
+          <p id="budget-status" class="muted">No budget set yet.</p>
+        </div>
+      </section>
+
+      <section class="panel analytics-panel">
+        <div class="section-head">
+          <div>
+            <h2>Analytics</h2>
+            <p class="muted">Fast signals that help you decide what matters.</p>
+          </div>
+        </div>
+        <div id="analytics" class="analytics-grid"></div>
+      </section>
+
+      <section class="panel trend-panel">
+        <div class="section-head">
+          <div>
+            <h2>Monthly Trend</h2>
+            <p class="muted">Six-month income and expense snapshot.</p>
+          </div>
+        </div>
+        <canvas id="trend-chart" width="360" height="210"></canvas>
+      </section>
+    </section>
+
+    <section class="panel insights">
+      <div class="section-head">
+        <div>
+          <h2>Insights</h2>
+          <p id="warn" class="warning-text"></p>
+        </div>
+        <div id="status-banner" class="status-banner hidden"></div>
+      </div>
+
+      <div class="visuals">
+        <div class="chart-card">
+          <canvas id="chart" width="320" height="320"></canvas>
+          <div id="legend" class="legend"></div>
+        </div>
+        <div class="breakdown-card">
+          <h3>Expense Breakdown</h3>
+          <div id="breakdown" class="breakdown-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <h2>Transactions</h2>
+          <p class="muted">Search, sort, filter, edit, export, or import your records.</p>
+        </div>
+        <div class="filters">
+          <label>
+            <span>Search</span>
+            <input id="search-input" placeholder="Search category or note">
+          </label>
+
+          <label>
+            <span>Type</span>
+            <select id="filter-type">
+              <option value="all">All</option>
+              <option value="income">Income</option>
+              <option value="expense">Expense</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Month</span>
+            <input id="filter-month" type="month">
+          </label>
+
+          <label>
+            <span>Sort</span>
+            <select id="sort-by">
+              <option value="date-desc">Newest First</option>
+              <option value="date-asc">Oldest First</option>
+              <option value="amount-desc">Highest Amount</option>
+              <option value="amount-asc">Lowest Amount</option>
+            </select>
+          </label>
+
+          <button id="clear-filters" type="button" class="ghost-btn">Clear Filters</button>
+          <button id="export-data" type="button" class="ghost-btn">Export JSON</button>
+          <button id="export-csv" type="button" class="ghost-btn">Export CSV</button>
+          <button id="import-trigger" type="button" class="ghost-btn">Import JSON</button>
+          <input id="import-data" type="file" accept="application/json" hidden>
+        </div>
+      </div>
+
+      <div class="list-meta">
+        <span id="result-count">0 transactions</span>
+        <span id="monthly-focus">Viewing all months</span>
+      </div>
+      <div id="list" class="transaction-list"></div>
+    </section>
+
+    <footer class="footer-note">
+      <p>FlowLedger runs entirely in your browser. Your data stays local unless you choose to export it.</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

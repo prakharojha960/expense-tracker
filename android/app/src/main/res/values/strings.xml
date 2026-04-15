@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">FlowLedger</string>
+    <string name="title_activity_main">FlowLedger</string>
+    <string name="package_name">com.flowledger.app</string>
+    <string name="custom_url_scheme">com.flowledger.app</string>
+</resources>
