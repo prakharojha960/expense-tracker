@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowLedger — Download APK</title>
+  <meta name="description" content="Download FlowLedger, a personal finance tracker app for Android. Track income, expenses, budgets, and spending trends — all private on your device.">
+  <meta name="keywords" content="FlowLedger, expense tracker, finance app, budget tracker, APK download, Android app">
+  <meta property="og:title" content="FlowLedger — Personal Finance Tracker">
+  <meta property="og:description" content="Track income, control spending, and spot patterns. Download the free Android app.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://prakharojha960.github.io/expense-tracker">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --amber-400: #fbbf24;
+      --amber-500: #f59e0b;
+      --amber-600: #d97706;
+      --amber-700: #b45309;
+      --surface: rgba(255,255,255,0.06);
+      --surface-border: rgba(255,255,255,0.1);
+      --text: #f1f5f9;
+      --text-muted: rgba(241,245,249,0.55);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0c0e1a;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated gradient bg */
+    .bg-glow {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 50% at 20% 20%, rgba(217,119,6,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 80% 80%, rgba(245,158,11,0.08) 0%, transparent 70%);
+    }
+
+    .container {
+      position: relative; z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    /* Nav */
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0; margin-bottom: 60px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--amber-600), var(--amber-400));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 16px rgba(217,119,6,0.25);
+    }
+    .nav-name { font-size: 18px; font-weight: 700; color: var(--text); }
+    .nav-tag {
+      font-size: 12px; font-weight: 600;
+      background: rgba(251,191,36,0.15); color: var(--amber-400);
+      padding: 4px 12px; border-radius: 20px;
+    }
+
+    /* Hero */
+    .hero { text-align: center; margin-bottom: 56px; }
+    .hero-badge {
+      display: inline-block;
+      font-size: 13px; font-weight: 600;
+      color: var(--amber-400);
+      background: rgba(251,191,36,0.1);
+      border: 1px solid rgba(251,191,36,0.2);
+      padding: 6px 16px; border-radius: 24px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 6vw, 52px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, #fff 30%, var(--amber-400));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 17px; line-height: 1.7;
+      color: var(--text-muted);
+      max-width: 520px; margin: 0 auto 36px;
+    }
+
+    /* CTA */
+    .cta-group { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: linear-gradient(135deg, var(--amber-600), var(--amber-500));
+      color: #fff; text-decoration: none;
+      padding: 18px 48px;
+      border-radius: 16px;
+      font-size: 18px; font-weight: 700;
+      box-shadow: 0 8px 32px rgba(217,119,6,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .download-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(217,119,6,0.45); }
+    .download-btn:active { transform: scale(0.98); }
+    .download-btn svg { width: 22px; height: 22px; }
+    .cta-meta { font-size: 13px; color: var(--text-muted); }
+    .cta-meta strong { color: rgba(255,255,255,0.7); }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 56px;
+    }
+    .feat {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 18px;
+      padding: 28px 22px;
+      transition: border-color 0.3s;
+    }
+    .feat:hover { border-color: rgba(251,191,36,0.25); }
+    .feat-icon {
+      width: 44px; height: 44px;
+      background: rgba(251,191,36,0.1);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    .feat h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .feat p { font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+
+    /* Install Steps */
+    .install-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      margin-bottom: 56px;
+    }
+    .install-card h2 {
+      font-size: 20px; font-weight: 700; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .steps { list-style: none; counter-reset: step; }
+    .steps li {
+      counter-increment: step;
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.75);
+    }
+    .steps li:last-child { border-bottom: none; }
+    .steps li::before {
+      content: counter(step);
+      flex-shrink: 0;
+      width: 30px; height: 30px;
+      background: rgba(251,191,36,0.12);
+      color: var(--amber-400);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      font-size: 13px; color: var(--text-muted); line-height: 1.8;
+    }
+    .footer a { color: var(--amber-400); text-decoration: none; }
+
+    /* Pulse animation on download button */
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 8px 32px rgba(217,119,6,0.35); }
+      50% { box-shadow: 0 8px 48px rgba(217,119,6,0.55); }
+    }
+    .download-btn { animation: pulse-glow 3s ease-in-out infinite; }
+    .download-btn:hover { animation: none; }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="container">
+
+    <nav class="nav">
+      <a href="#" class="nav-brand">
+        <div class="nav-logo">💰</div>
+        <span class="nav-name">FlowLedger</span>
+      </a>
+      <span class="nav-tag">Free & Open Source</span>
+    </nav>
+
+    <section class="hero">
+      <span class="hero-badge">📱 Android App Available</span>
+      <h1>Your money, finally easy&nbsp;to&nbsp;read.</h1>
+      <p>A polished personal finance dashboard for tracking income, controlling spend, and spotting patterns — all private on your device.</p>
+      <div class="cta-group">
+        <a id="download-apk" href="FlowLedger.apk" class="download-btn" download>
+          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+          Download APK
+        </a>
+        <p class="cta-meta"><strong>v1.0</strong> · 3.9 MB · Android 7.0+</p>
+      </div>
+    </section>
+
+    <section class="features">
+      <article class="feat">
+        <div class="feat-icon">📊</div>
+        <h3>Smart Analytics</h3>
+        <p>Category breakdowns, savings rate, and six-month trends at a glance.</p>
+      </article>
+      <article class="feat">
+        <div class="feat-icon">🎯</div>
+        <h3>Budget Goals</h3>
+        <p>Set monthly spending targets and track your progress in real time.</p>
+      </article>
+      <article class="feat">
+        <div class="feat-icon">🔒</div>
+        <h3>100% Private</h3>
+        <p>All data stays on your device. No accounts, no cloud, no tracking.</p>
+      </article>
+      <article class="feat">
+        <div class="feat-icon">📤</div>
+        <h3>Export Ready</h3>
+        <p>Export your records as JSON or CSV anytime you need them.</p>
+      </article>
+      <article class="feat">
+        <div class="feat-icon">🔁</div>
+        <h3>Recurring Tags</h3>
+        <p>Mark recurring transactions to identify fixed costs easily.</p>
+      </article>
+      <article class="feat">
+        <div class="feat-icon">💱</div>
+        <h3>INR Currency</h3>
+        <p>Built for Indian Rupees with clean, formatted amounts throughout.</p>
+      </article>
+    </section>
+
+    <section class="install-card">
+      <h2>📲 How to Install</h2>
+      <ol class="steps">
+        <li>Tap the <strong>Download APK</strong> button above</li>
+        <li>Open the downloaded file from your notifications or file manager</li>
+        <li>If prompted, allow <strong>"Install from this source"</strong> in your browser settings</li>
+        <li>Tap <strong>Install</strong> and launch FlowLedger!</li>
+      </ol>
+    </section>
+
+    <footer class="footer">
+      <p>Built by <a href="https://github.com/prakharojha960" target="_blank">Prakhar Ojha</a></p>
+      <p>Source code on <a href="https://github.com/prakharojha960/expense-tracker" target="_blank">GitHub</a></p>
+    </footer>
+
+  </div>
+</body>
+</html>
