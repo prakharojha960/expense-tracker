@@ -107,6 +107,7 @@
       padding: 18px 48px;
       border-radius: 16px;
       font-size: 18px; font-weight: 700;
+      border: none; cursor: pointer;
       box-shadow: 0 8px 32px rgba(217,119,6,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
@@ -209,13 +210,39 @@
       <h1>Your money, finally easy&nbsp;to&nbsp;read.</h1>
       <p>A polished personal finance dashboard for tracking income, controlling spend, and spotting patterns — all private on your device.</p>
       <div class="cta-group">
-        <a id="download-apk" href="FlowLedger.apk" class="download-btn" download>
+        <button id="download-apk" class="download-btn" onclick="downloadAPK()">
           <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
-          Download APK
-        </a>
-        <p class="cta-meta"><strong>v1.0</strong> · 3.9 MB · Android 7.0+</p>
+          <span id="dl-text">Download APK</span>
+        </button>
+        <p class="cta-meta"><strong>v2.0</strong> · 3.9 MB · Android 7.0+</p>
+        <a href="FlowLedger.apk" download="FlowLedger.apk" id="dl-fallback" style="display:none"></a>
       </div>
     </section>
+    <script>
+      function downloadAPK() {
+        var btn = document.getElementById('dl-text');
+        btn.textContent = 'Downloading…';
+        fetch('FlowLedger.apk')
+          .then(function(r) { return r.blob(); })
+          .then(function(blob) {
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'FlowLedger.apk';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            btn.textContent = 'Downloaded ✓';
+            setTimeout(function() { btn.textContent = 'Download APK'; }, 3000);
+          })
+          .catch(function() {
+            // Fallback: try direct link
+            document.getElementById('dl-fallback').click();
+            btn.textContent = 'Download APK';
+          });
+      }
+    </script>
 
     <section class="features">
       <article class="feat">
